@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JMagnet Co. — Custom Magnets & More</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== TOKENS ===== */
+    :root {
+      --orange: #E8520A;
+      --orange-light: #FF6B22;
+      --orange-glow: rgba(232,82,10,0.25);
+      --black: #0D0D0D;
+      --dark: #141414;
+      --card: #1C1C1C;
+      --card-border: #2A2A2A;
+      --white: #F5F0EB;
+      --muted: #888;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-script: 'Dancing Script', cursive;
+      --font-body: 'Nunito', sans-serif;
+    }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 2rem;
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .nav-logo img {
+      height: 40px;
+      width: 40px;
+      object-fit: contain;
+    }
+    .nav-logo-text {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      line-height: 1;
+    }
+    .nav-logo-text span { color: var(--orange); }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--orange); }
+    .nav-cta {
+      background: var(--orange);
+      color: var(--black) !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 4px;
+      font-weight: 800 !important;
+    }
+    .nav-cta:hover { background: var(--orange-light) !important; color: var(--black) !important; }
+
+    /* Mobile nav toggle */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      transition: 0.3s;
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 61px; left: 0; right: 0;
+      background: rgba(13,13,13,0.98);
+      backdrop-filter: blur(12px);
+      z-index: 99;
+      padding: 1.5rem 2rem;
+      flex-direction: column;
+      gap: 1.2rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--orange); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(232,82,10,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-logo {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      margin-bottom: 1.5rem;
+      animation: floatLogo 4s ease-in-out infinite;
+    }
+    @keyframes floatLogo {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .hero-eyebrow {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      letter-spacing: 0.3em;
+      color: var(--orange);
+      margin-bottom: 0.75rem;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 12vw, 8rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .hero-title span { color: var(--orange); }
+    .hero-subtitle {
+      font-family: var(--font-script);
+      font-size: clamp(1.4rem, 4vw, 2.2rem);
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-bottom: 2.5rem;
+    }
+    .hero-tag {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      color: var(--white);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+    }
+    .hero-tag.active {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: var(--black);
+    }
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn-primary {
+      background: var(--orange);
+      color: var(--black);
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      padding: 0.85rem 2.5rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      padding: 0.85rem 2.5rem;
+      border-radius: 4px;
+      border: 1px solid var(--card-border);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+    .btn-outline:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--muted), transparent);
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ===== SECTION WRAPPER ===== */
+    section { padding: 6rem 2rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      letter-spacing: 0.35em;
+      color: var(--orange);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      line-height: 1;
+      margin-bottom: 1.2rem;
+    }
+    .section-title em { font-style: normal; color: var(--orange); }
+    .section-desc {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #AAA;
+      max-width: 560px;
+      margin-bottom: 3rem;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid var(--card-border);
+      margin: 0;
+    }
+
+    /* ===== PRODUCTS ===== */
+    #products { background: var(--dark); }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .product-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--orange);
+      box-shadow: 0 12px 40px var(--orange-glow);
+    }
+    .product-img-wrap {
+      aspect-ratio: 1;
+      background: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .product-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      height: 100%;
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: repeating-linear-gradient(
+        45deg,
+        #1a1a1a,
+        #1a1a1a 10px,
+        #1e1e1e 10px,
+        #1e1e1e 20px
+      );
+    }
+    .product-placeholder-icon {
+      font-size: 2.5rem;
+      opacity: 0.3;
+    }
+    .product-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--orange);
+      color: var(--black);
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+    }
+    .product-info { padding: 1.2rem; }
+    .product-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.3rem;
+    }
+    .product-size {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .product-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ===== USE CASES ===== */
+    #usecases { background: var(--black); }
+    .usecase-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .usecase-item {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1.2rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .usecase-item:hover { border-color: var(--orange); color: var(--orange); }
+    .usecase-icon { font-size: 1.5rem; }
+
+    /* ===== MARKETS ===== */
+    #markets { background: var(--dark); }
+    .markets-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    @media (max-width: 768px) { .markets-intro { grid-template-columns: 1fr; gap: 2rem; } }
+    .market-flyer-stack {
+      position: relative;
+      height: 380px;
+    }
+    .market-flyer {
+      position: absolute;
+      width: 220px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid var(--card-border);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .market-flyer img { width: 100%; display: block; }
+    .market-flyer:nth-child(1) { left: 0; top: 0; transform: rotate(-3deg); z-index: 1; }
+    .market-flyer:nth-child(2) { left: 110px; top: 60px; transform: rotate(2deg); z-index: 2; border-color: var(--orange); }
+    .markets-text .section-desc { margin-bottom: 1.5rem; }
+    .market-events {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .market-event {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .market-event-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+    .market-event-sub {
+      font-weight: 400;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    /* ===== ABOUT ===== */
+    #about { background: var(--black); }
+    .about-inner {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    @media (max-width: 768px) { .about-inner { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .about-photo-frame {
+      position: relative;
+    }
+    .about-photo-frame::before {
+      content: '';
+      position: absolute;
+      inset: -12px;
+      border: 2px solid var(--orange);
+      border-radius: 16px;
+      opacity: 0.4;
+    }
+    .about-photo-frame::after {
+      content: 'KID-OWNED BUSINESS';
+      position: absolute;
+      bottom: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--orange);
+      color: var(--black);
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      padding: 0.4rem 1.2rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      z-index: 2;
+    }
+    .about-photo {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+      aspect-ratio: 3/4;
+    }
+    .about-photo-placeholder {
+      aspect-ratio: 3/4;
+      background: var(--card);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .about-quote {
+      font-family: var(--font-script);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--orange);
+      margin-bottom: 1.5rem;
+      line-height: 1.3;
+    }
+    .about-body {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: #AAA;
+      margin-bottom: 1.2rem;
+    }
+    .about-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .about-stat-num {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      color: var(--orange);
+      line-height: 1;
+    }
+    .about-stat-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ===== ARCHIVE ===== */
+    #archive {
+      background: var(--dark);
+      border-top: 1px solid var(--card-border);
+    }
+    .archive-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 600px) { .archive-card { flex-direction: column; } }
+    .archive-icon {
+      font-size: 3rem;
+      flex-shrink: 0;
+    }
+    .archive-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.5rem;
+    }
+    .archive-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .archive-tag {
+      display: inline-block;
+      background: rgba(232,82,10,0.15);
+      color: var(--orange);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(232,82,10,0.3);
+    }
+
+    /* ===== CONTACT ===== */
+    #contact { background: var(--black); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .contact-info-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .contact-info-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .contact-info-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.15rem;
+    }
+    .contact-info-val {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .contact-info-val a:hover { color: var(--orange); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+    .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .form-input, .form-textarea, .form-select {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      border-color: var(--orange);
+    }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-select option { background: var(--dark); }
+
+    /* Product quantity rows */
+    .products-order-section {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .products-order-header {
+      background: rgba(232,82,10,0.08);
+      border-bottom: 1px solid var(--card-border);
+      padding: 0.75rem 1rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 1rem;
+      align-items: center;
+    }
+    .qty-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--card-border);
+      transition: background 0.15s;
+    }
+    .qty-row:last-child { border-bottom: none; }
+    .qty-row:hover { background: rgba(255,255,255,0.02); }
+    .qty-row.has-qty { background: rgba(232,82,10,0.05); }
+    .qty-product-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .qty-price {
+      font-size: 0.8rem;
+      color: var(--orange);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .qty-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid var(--card-border);
+      background: var(--dark);
+      color: var(--white);
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.15s, background 0.15s;
+      flex-shrink: 0;
+    }
+    .qty-btn:hover { border-color: var(--orange); background: rgba(232,82,10,0.1); }
+    .qty-input {
+      width: 48px;
+      text-align: center;
+      background: var(--dark);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 0.3rem 0.2rem;
+      outline: none;
+    }
+    .qty-input:focus { border-color: var(--orange); }
+
+    /* Bulk toggle */
+    .bulk-toggle-wrap {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      cursor: pointer;
+    }
+    .bulk-toggle-wrap input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--orange);
+      flex-shrink: 0;
+      margin-top: 2px;
+      cursor: pointer;
+    }
+    .bulk-toggle-label { font-size: 0.88rem; font-weight: 700; }
+    .bulk-toggle-sub { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* Live total bar */
+    .order-total-bar {
+      background: rgba(232,82,10,0.08);
+      border: 1px solid rgba(232,82,10,0.25);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .order-total-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .order-total-amount {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--orange);
+      letter-spacing: 0.04em;
+    }
+    .order-total-note {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+      text-align: right;
+    }
+
+    .form-submit {
+      background: var(--orange);
+      color: var(--black);
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      border: none;
+      border-radius: 8px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .form-submit:hover { background: var(--orange-light); transform: translateY(-2px); }
+    .form-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .form-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid var(--card-border);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .footer-logo img {
+      height: 52px;
+      object-fit: contain;
+      margin: 0 auto 0.75rem;
+    }
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+    .footer-brand span { color: var(--orange); }
+    .footer-tagline {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-copy {
+      font-size: 0.72rem;
+      color: #444;
+    }
+    .footer-copy a { color: #666; }
+    .footer-copy a:hover { color: var(--orange); }
+
+    /* ===== ANIMATIONS ===== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      <img src="images/logo.png" alt="JMagnet Co." />
+      <div class="nav-logo-text">JMAGNET <span>CO.</span></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#products">Products</a></li>
+      <li><a href="#markets">Markets</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#archive">Archive</a></li>
+      <li><a href="#contact" class="nav-cta">Order Now</a></li>
+    </ul>
+    <button class="nav-hamburger" id="menuBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#products" onclick="closeMenu()">Products</a>
+    <a href="#markets" onclick="closeMenu()">Markets</a>
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#archive" onclick="closeMenu()">Archive</a>
+    <a href="#contact" onclick="closeMenu()" style="color:var(--orange)">Order Now</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-glow"></div>
+    <img src="images/logo.png" alt="JMagnet Co." class="hero-logo" />
+    <p class="hero-eyebrow">Custom Magnets & More — Luling, TX</p>
+    <h1 class="hero-title">JMAGNET<br /><span>CO.</span></h1>
+    <p class="hero-subtitle">Turn your memories into magnets!</p>
+    <div class="hero-tags">
+      <span class="hero-tag active">Round Magnets</span>
+      <span class="hero-tag active">Buttons</span>
+      <span class="hero-tag active">Keychains</span>
+      <span class="hero-tag active">Bottle Openers</span>
+      <span class="hero-tag">Kid-Owned Business</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary">See Products</a>
+      <a href="#contact" class="btn-outline">Get a Quote</a>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="section-inner">
+      <p class="section-label fade-up">What We Make</p>
+      <h2 class="section-title fade-up">Our <em>Products</em></h2>
+      <p class="section-desc fade-up">Everything is made on your design — photos, logos, artwork, or text. All items are 2.28" round and built sturdy.</p>
+
+      <div class="products-grid">
+
+        <div class="product-card fade-up">
+          <div class="product-img-wrap">
+            <!-- SWAP: replace with actual magnet photo -->
+            <div class="product-placeholder">
+              <div class="product-placeholder-icon">🧲</div>
+              Photo coming soon
+            </div>
+            <span class="product-badge">Best Seller</span>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Round Magnet</div>
+            <div class="product-size">2.28" Diameter</div>
+            <p class="product-desc">Sturdy fridge or locker magnet with full-color custom printing. Perfect for photos, logos, and custom art.</p>
+          </div>
+        </div>
+
+        <div class="product-card fade-up">
+          <div class="product-img-wrap">
+            <!-- SWAP: replace with button photo -->
+            <div class="product-placeholder">
+              <div class="product-placeholder-icon">📌</div>
+              Photo coming soon
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Button Pin</div>
+            <div class="product-size">2.28" Diameter</div>
+            <p class="product-desc">Classic pin-back button. Great for events, fundraisers, school spirit, or just showing off your design.</p>
+          </div>
+        </div>
+
+        <div class="product-card fade-up">
+          <div class="product-img-wrap">
+            <!-- SWAP: replace with keychain photo -->
+            <div class="product-placeholder">
+              <div class="product-placeholder-icon">🔑</div>
+              Photo coming soon
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Keychain</div>
+            <div class="product-size">2.28" Round</div>
+            <p class="product-desc">Take your design everywhere. Metal keyring attached, durable and compact. Custom photo or text.</p>
+          </div>
+        </div>
+
+        <div class="product-card fade-up">
+          <div class="product-img-wrap">
+            <!-- SWAP: replace with bottle opener photo — we have one! -->
+            <img src="images/bottle-opener.jpg" alt="Custom Bottle Opener" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Bottle Opener</div>
+            <div class="product-size">2.28" Round</div>
+            <p class="product-desc">A functional keepsake — custom printed top with a built-in bottle opener on the back. Party favorite.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- USE CASES -->
+  <section id="usecases" style="padding-top: 0;">
+    <div class="section-inner">
+      <p class="section-label fade-up" style="margin-top:2rem;">Who Orders From Us</p>
+      <h2 class="section-title fade-up" style="margin-bottom:0.5rem;">Great for <em>Any Occasion</em></h2>
+      <div class="usecase-list">
+        <div class="usecase-item fade-up"><span class="usecase-icon">⚾</span>Sports Teams</div>
+        <div class="usecase-item fade-up"><span class="usecase-icon">🎓</span>Graduations</div>
+        <div class="usecase-item fade-up"><span class="usecase-icon">🎉</span>Birthdays & Parties</div>
+        <div class="usecase-item fade-up"><span class="usecase-icon">🐾</span>Pet Photos</div>
+        <div class="usecase-item fade-up"><span class="usecase-icon">🏢</span>Businesses & Brands</div>
+        <div class="usecase-item fade-up"><span class="usecase-icon">💒</span>Weddings & Events</div>
+        <div class="usecase-item fade-up"><span class="usecase-icon">🇺🇸</span>Fundraisers</div>
+        <div class="usecase-item fade-up"><span class="usecase-icon">🎁</span>Custom Gifts</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- MARKETS -->
+  <section id="markets">
+    <div class="section-inner">
+      <div class="markets-intro">
+        <div class="market-flyer-stack fade-up">
+          <div class="market-flyer">
+            <img src="images/flyer-sandhills.png" alt="Sandhills Trade Day" />
+          </div>
+          <div class="market-flyer">
+            <img src="images/flyer-citymarket.png" alt="City Market Luling" />
+          </div>
+        </div>
+        <div class="markets-text">
+          <p class="section-label">Find Us in Person</p>
+          <h2 class="section-title">Pop-Up <em>Markets</em></h2>
+          <p class="section-desc">We hit local markets and events across the area — bring your design, pick it up in person, or just come say hi. Watch our Facebook for upcoming dates.</p>
+          <div class="market-events">
+            <div class="market-event">
+              <div class="market-event-dot"></div>
+              <div>
+                <div>City Market — Luling, TX</div>
+                <div class="market-event-sub">633 E Davis St · Pop-ups announced on Facebook</div>
+              </div>
+            </div>
+            <div class="market-event">
+              <div class="market-event-dot"></div>
+              <div>
+                <div>Sandhills Trade Day</div>
+                <div class="market-event-sub">Check Facebook @JMagnetCo for dates</div>
+              </div>
+            </div>
+            <div class="market-event">
+              <div class="market-event-dot"></div>
+              <div>
+                <div>Mother's Day Craft & Vendor Market</div>
+                <div class="market-event-sub">Tanger Outlets San Marcos · May 2–3, 2026 · 10 AM – 4 PM</div>
+              </div>
+            </div>
+            <div class="market-event">
+              <div class="market-event-dot"></div>
+              <div>
+                <div>More locations always in the works</div>
+                <div class="market-event-sub">Follow @JMagnetCo on Facebook for announcements</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:2rem;">
+            <a href="https://facebook.com/JMagnetCo" target="_blank" class="btn-primary">Follow on Facebook</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-inner">
+        <div class="about-photo-frame fade-up">
+          <!-- SWAP: owner photo -->
+          <img src="images/owner.jpg" alt="JMagnet Co. Owner" class="about-photo" />
+        </div>
+        <div class="fade-up">
+          <p class="section-label">The Story</p>
+          <h2 class="section-title">Meet <em>Josiah</em></h2>
+          <p class="about-quote">"Turn your memories into magnets!"</p>
+          <p class="about-body">Hi, I'm Josiah — the kid behind JMagnet Co. What started as a simple idea to turn photos into something people could keep forever has grown into a real business selling custom magnets, buttons, keychains, and bottle openers across Texas.</p>
+          <p class="about-body">I started with sheet magnets, then expanded into round products after seeing what people actually wanted. Now I'm out at local vendor markets, taking custom orders, and working with businesses on bulk runs — all while running everything myself.</p>
+          <p class="about-body">Every order is made with care. Kid-owned, Texas-made, and built to last.</p>
+          <div class="about-stats">
+            <div>
+              <div class="about-stat-num">2.28"</div>
+              <div class="about-stat-label">Sturdy Round Products</div>
+            </div>
+            <div>
+              <div class="about-stat-num">4+</div>
+              <div class="about-stat-label">Product Types</div>
+            </div>
+            <div>
+              <div class="about-stat-num">TX</div>
+              <div class="about-stat-label">Proud Texas Business</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ARCHIVE -->
+  <section id="archive">
+    <div class="section-inner">
+      <p class="section-label fade-up">Specialty Orders</p>
+      <h2 class="section-title fade-up">The <em>Archive</em></h2>
+      <p class="section-desc fade-up">We still make sheet magnets and other specialty formats for clients who need something unique. These aren't in our main lineup, but if you need it — ask.</p>
+
+      <div class="archive-card fade-up">
+        <div class="archive-icon">🗂️</div>
+        <div>
+          <div class="archive-title">Sheet Magnets</div>
+          <p class="archive-desc">Flexible printed sheet magnets — great for custom fridge magnets, car magnets, promo giveaways, and more. Available in various sizes. Minimum quantities may apply.</p>
+          <span class="archive-tag">By Request Only</span>
+        </div>
+      </div>
+
+      <div class="archive-card fade-up">
+        <div class="archive-icon">✨</div>
+        <div>
+          <div class="archive-title">Custom & Bulk Orders</div>
+          <p class="archive-desc">Need something special — a unique size, a large order for an event, or a product type we don't normally list? Reach out. We love a challenge.</p>
+          <span class="archive-tag">Contact to Inquire</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <p class="section-label fade-up">Get In Touch</p>
+      <h2 class="section-title fade-up">Place an <em>Order</em></h2>
+      <div class="contact-grid">
+        <div class="fade-up">
+          <p class="section-desc" style="margin-bottom:2rem;">Ready to order or have questions? Send us a message and we'll get back to you. You can also reach us on Facebook or by email.</p>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">✉️</div>
+            <div>
+              <div class="contact-info-label">Email</div>
+              <div class="contact-info-val"><a href="mailto:jmagnetco@gmail.com">jmagnetco@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📘</div>
+            <div>
+              <div class="contact-info-label">Facebook</div>
+              <div class="contact-info-val"><a href="https://facebook.com/JMagnetCo" target="_blank">@JMagnetCo</a></div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📍</div>
+            <div>
+              <div class="contact-info-label">Based In</div>
+              <div class="contact-info-val">Luling, TX</div>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact-form fade-up" id="orderForm">
+
+          <!-- Name + Email -->
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label" for="name">Your Name</label>
+              <input class="form-input" type="text" id="name" name="name" placeholder="Jane Smith" required />
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="email">Email</label>
+              <input class="form-input" type="email" id="email" name="email" placeholder="you@email.com" required />
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="form-field">
+            <label class="form-label" for="phone">Phone (optional)</label>
+            <input class="form-input" type="tel" id="phone" name="phone" placeholder="(555) 000-0000" />
+          </div>
+
+          <!-- Product quantity selector -->
+          <div class="form-field">
+            <label class="form-label">What Would You Like? (adjust quantities)</label>
+            <div class="products-order-section">
+              <div class="products-order-header">
+                <span>Product</span>
+                <span>Price ea.</span>
+                <span>Qty</span>
+              </div>
+
+              <div class="qty-row" id="row-magnets">
+                <span class="qty-product-name">Round Magnets</span>
+                <span class="qty-price">$5.00</span>
+                <div class="qty-controls">
+                  <button type="button" class="qty-btn" onclick="changeQty('magnets',-1)">−</button>
+                  <input class="qty-input" type="number" id="qty-magnets" value="0" min="0" max="999" oninput="updateTotal()" />
+                  <button type="button" class="qty-btn" onclick="changeQty('magnets',1)">+</button>
+                </div>
+              </div>
+
+              <div class="qty-row" id="row-buttons">
+                <span class="qty-product-name">Button Pins</span>
+                <span class="qty-price">$3.00</span>
+                <div class="qty-controls">
+                  <button type="button" class="qty-btn" onclick="changeQty('buttons',-1)">−</button>
+                  <input class="qty-input" type="number" id="qty-buttons" value="0" min="0" max="999" oninput="updateTotal()" />
+                  <button type="button" class="qty-btn" onclick="changeQty('buttons',1)">+</button>
+                </div>
+              </div>
+
+              <div class="qty-row" id="row-keychains">
+                <span class="qty-product-name">Keychains</span>
+                <span class="qty-price">$5.00</span>
+                <div class="qty-controls">
+                  <button type="button" class="qty-btn" onclick="changeQty('keychains',-1)">−</button>
+                  <input class="qty-input" type="number" id="qty-keychains" value="0" min="0" max="999" oninput="updateTotal()" />
+                  <button type="button" class="qty-btn" onclick="changeQty('keychains',1)">+</button>
+                </div>
+              </div>
+
+              <div class="qty-row" id="row-openers">
+                <span class="qty-product-name">Bottle Openers</span>
+                <span class="qty-price">$7.00</span>
+                <div class="qty-controls">
+                  <button type="button" class="qty-btn" onclick="changeQty('openers',-1)">−</button>
+                  <input class="qty-input" type="number" id="qty-openers" value="0" min="0" max="999" oninput="updateTotal()" />
+                  <button type="button" class="qty-btn" onclick="changeQty('openers',1)">+</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Bulk toggle -->
+          <label class="bulk-toggle-wrap">
+            <input type="checkbox" id="bulkToggle" onchange="updateTotal()" />
+            <div>
+              <div class="bulk-toggle-label">This is a bulk order (25+ of any item)</div>
+              <div class="bulk-toggle-sub">Need 25 or more of any single product? Check this and we'll contact you with bulk pricing.</div>
+            </div>
+          </label>
+
+          <!-- Live total -->
+          <div class="order-total-bar" id="totalBar" style="display:none;">
+            <div>
+              <div class="order-total-label">Estimated Total</div>
+              <div id="bulkNote" style="font-size:0.72rem;color:var(--orange);margin-top:0.2rem;display:none;">⚡ Bulk order — contact us for pricing</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="order-total-amount" id="totalAmount">$0.00</div>
+              <div class="order-total-note">Standard rates · subject to design review</div>
+            </div>
+          </div>
+
+          <!-- Design notes -->
+          <div class="form-field">
+            <label class="form-label" for="message">Design Details & Notes</label>
+            <textarea class="form-textarea" id="message" name="message" placeholder="Describe your design — a photo, text, logo, event name, colors... anything that helps us understand what you want."></textarea>
+          </div>
+
+          <button type="submit" class="form-submit" id="submitBtn">Send My Order →</button>
+          <div id="formStatus" style="display:none;"></div>
+          <p class="form-note">We'll review your order and reach out within 1–2 business days with confirmation and your payment link.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <img src="images/logo.png" alt="JMagnet Co." />
+    </div>
+    <div class="footer-brand">JMAGNET <span>CO.</span></div>
+    <p class="footer-tagline">Custom Magnets & More · Luling, TX</p>
+    <div class="footer-links">
+      <a href="#products">Products</a>
+      <a href="#markets">Markets</a>
+      <a href="#about">About</a>
+      <a href="#archive">Archive</a>
+      <a href="#contact">Contact</a>
+      <a href="https://facebook.com/JMagnetCo" target="_blank">Facebook</a>
+    </div>
+    <p class="footer-copy">© 2025 JMagnet Co. All rights reserved. · <a href="mailto:jmagnetco@gmail.com">jmagnetco@gmail.com</a></p>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    function closeMenu() { mobileMenu.classList.remove('open'); }
+
+    // Fade-up on scroll
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeEls.forEach(el => observer.observe(el));
+
+    // ── PRICING ─────────────────────────────────────────────────
+    const PRICES = {
+      magnets:  { label: 'Round Magnets',  price: 5 },
+      buttons:  { label: 'Button Pins',    price: 3 },
+      keychains:{ label: 'Keychains',      price: 5 },
+      openers:  { label: 'Bottle Openers', price: 7 },
+    };
+    const BULK_THRESHOLD = 25;
+
+    function getQty(id) {
+      return Math.max(0, parseInt(document.getElementById('qty-' + id).value) || 0);
+    }
+
+    function changeQty(id, delta) {
+      const input = document.getElementById('qty-' + id);
+      const newVal = Math.max(0, (parseInt(input.value) || 0) + delta);
+      input.value = newVal;
+      updateTotal();
+    }
+
+    function updateTotal() {
+      let total = 0;
+      let hasAny = false;
+      let hasBulk = false;
+      const isBulkChecked = document.getElementById('bulkToggle').checked;
+
+      Object.keys(PRICES).forEach(id => {
+        const qty = getQty(id);
+        const row = document.getElementById('row-' + id);
+        if (qty > 0) {
+          hasAny = true;
+          total += qty * PRICES[id].price;
+          row.classList.add('has-qty');
+          if (qty >= BULK_THRESHOLD) hasBulk = true;
+        } else {
+          row.classList.remove('has-qty');
+        }
+      });
+
+      const totalBar  = document.getElementById('totalBar');
+      const totalAmt  = document.getElementById('totalAmount');
+      const bulkNote  = document.getElementById('bulkNote');
+      const submitBtn = document.getElementById('submitBtn');
+
+      if (hasAny || isBulkChecked) {
+        totalBar.style.display = 'flex';
+        totalAmt.textContent = '$' + total.toFixed(2);
+        const showBulk = hasBulk || isBulkChecked;
+        bulkNote.style.display = showBulk ? 'block' : 'none';
+        submitBtn.textContent = showBulk ? 'Send Bulk Inquiry →' : 'Send My Order →';
+      } else {
+        totalBar.style.display = 'none';
+      }
+    }
+
+    // ── GOOGLE SHEETS FORM SUBMIT ────────────────────────────────
+    const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+
+    const form = document.getElementById('orderForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const formStatus = document.getElementById('formStatus');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const isBulk = document.getElementById('bulkToggle').checked;
+      let total = 0;
+      let orderLines = [];
+      let hasBulkItem = false;
+
+      Object.keys(PRICES).forEach(id => {
+        const qty = getQty(id);
+        if (qty > 0) {
+          const lineTotal = qty * PRICES[id].price;
+          total += lineTotal;
+          orderLines.push(`${PRICES[id].label} × ${qty} = $${lineTotal.toFixed(2)}`);
+          if (qty >= BULK_THRESHOLD) hasBulkItem = true;
+        }
+      });
+
+      const isBulkOrder = isBulk || hasBulkItem;
+
+      const data = {
+        timestamp:   new Date().toLocaleString(),
+        name:        document.getElementById('name').value,
+        email:       document.getElementById('email').value,
+        phone:       document.getElementById('phone').value,
+        order:       orderLines.join(' | ') || 'No items selected',
+        estimatedTotal: isBulkOrder ? 'BULK — TBD' : '$' + total.toFixed(2),
+        bulkOrder:   isBulkOrder ? 'Yes' : 'No',
+        message:     document.getElementById('message').value,
+      };
+
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+      formStatus.style.display = 'none';
+
+      try {
+        await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        form.reset();
+        // Reset qty inputs manually (form.reset doesn't always fire oninput)
+        Object.keys(PRICES).forEach(id => {
+          document.getElementById('qty-' + id).value = 0;
+          document.getElementById('row-' + id).classList.remove('has-qty');
+        });
+        document.getElementById('totalBar').style.display = 'none';
+
+        // Build success message
+        let successHTML = '<strong>✓ Order received!</strong><br /><br />';
+        if (orderLines.length) {
+          successHTML += orderLines.map(l => '&nbsp;&nbsp;' + l).join('<br />');
+          successHTML += '<br /><hr style="border-color:rgba(232,82,10,0.3);margin:0.75rem 0;" />';
+          if (isBulkOrder) {
+            successHTML += '<strong>Bulk order — we\'ll contact you with pricing.</strong>';
+          } else {
+            successHTML += `<strong>Estimated Total: $${total.toFixed(2)}</strong>`;
+          }
+        }
+        successHTML += '<br /><br />We\'ll be in touch within 1–2 business days with confirmation and your payment link.';
+
+        formStatus.style.cssText = 'display:block; background:rgba(232,82,10,0.1); border:1px solid rgba(232,82,10,0.35); color:var(--white); border-radius:10px; padding:1.2rem 1.4rem; font-size:0.88rem; line-height:1.7; margin-top:0.5rem;';
+        formStatus.innerHTML = successHTML;
+        submitBtn.textContent = 'Send My Order →';
+        submitBtn.disabled = false;
+
+      } catch (err) {
+        formStatus.style.cssText = 'display:block; background:rgba(200,0,0,0.1); border:1px solid rgba(200,0,0,0.3); color:#ff6b6b; border-radius:10px; padding:1rem; text-align:center; font-weight:700; margin-top:0.5rem;';
+        formStatus.textContent = 'Something went wrong. Please email us at jmagnetco@gmail.com';
+        submitBtn.textContent = 'Send My Order →';
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
