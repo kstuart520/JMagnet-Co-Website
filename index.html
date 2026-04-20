@@ -208,11 +208,63 @@
       text-transform: uppercase;
       padding: 0.4rem 0.9rem;
       border-radius: 999px;
+      position: relative;
+      cursor: default;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
     }
     .hero-tag.active {
       background: var(--orange);
       border-color: var(--orange);
       color: var(--black);
+    }
+    .hero-tag:hover {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: var(--black);
+      transform: translateY(-2px);
+    }
+    /* Product preview popup on hover */
+    .hero-tag .tag-preview {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 160px;
+      background: var(--card);
+      border: 1px solid var(--orange);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      z-index: 50;
+      pointer-events: none;
+    }
+    .hero-tag:hover .tag-preview { display: block; }
+    .tag-preview img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      display: block;
+    }
+    .tag-preview-label {
+      padding: 0.4rem 0.6rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--orange);
+      text-align: center;
+    }
+    .tag-preview-placeholder {
+      width: 100%;
+      height: 120px;
+      background: repeating-linear-gradient(
+        45deg, #1a1a1a, #1a1a1a 8px, #1e1e1e 8px, #1e1e1e 16px
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
     }
     .hero-btns {
       display: flex;
@@ -920,10 +972,34 @@
     <h1 class="hero-title">JMAGNET<br /><span>CO.</span></h1>
     <p class="hero-subtitle">Turn your memories into magnets!</p>
     <div class="hero-tags">
-      <span class="hero-tag active">Round Magnets</span>
-      <span class="hero-tag active">Buttons</span>
-      <span class="hero-tag active">Keychains</span>
-      <span class="hero-tag active">Bottle Openers</span>
+      <span class="hero-tag active">
+        Round Magnets
+        <div class="tag-preview">
+          <img src="images/magnet.png" alt="Round Magnet" />
+          <div class="tag-preview-label">Round Magnets · $5</div>
+        </div>
+      </span>
+      <span class="hero-tag active">
+        Buttons
+        <div class="tag-preview">
+          <img src="images/button-pin.png" alt="Button Pin" />
+          <div class="tag-preview-label">Button Pins · $3</div>
+        </div>
+      </span>
+      <span class="hero-tag active">
+        Keychains
+        <div class="tag-preview">
+          <img src="images/keychain.png" alt="Keychain" />
+          <div class="tag-preview-label">Keychains · $5</div>
+        </div>
+      </span>
+      <span class="hero-tag active">
+        Bottle Openers
+        <div class="tag-preview">
+          <img src="images/bottle-opener.png" alt="Bottle Opener" />
+          <div class="tag-preview-label">Bottle Openers · $7</div>
+        </div>
+      </span>
       <span class="hero-tag">Kid-Owned Business</span>
     </div>
     <div class="hero-btns">
@@ -946,11 +1022,7 @@
 
         <div class="product-card fade-up">
           <div class="product-img-wrap">
-            <!-- SWAP: replace with actual magnet photo -->
-            <div class="product-placeholder">
-              <div class="product-placeholder-icon">🧲</div>
-              Photo coming soon
-            </div>
+            <img src="images/magnet.png" alt="Round Magnet" />
             <span class="product-badge">Best Seller</span>
           </div>
           <div class="product-info">
@@ -962,11 +1034,7 @@
 
         <div class="product-card fade-up">
           <div class="product-img-wrap">
-            <!-- SWAP: replace with button photo -->
-            <div class="product-placeholder">
-              <div class="product-placeholder-icon">📌</div>
-              Photo coming soon
-            </div>
+            <img src="images/button-pin.png" alt="Button Pin" />
           </div>
           <div class="product-info">
             <div class="product-name">Button Pin</div>
@@ -977,11 +1045,7 @@
 
         <div class="product-card fade-up">
           <div class="product-img-wrap">
-            <!-- SWAP: replace with keychain photo -->
-            <div class="product-placeholder">
-              <div class="product-placeholder-icon">🔑</div>
-              Photo coming soon
-            </div>
+            <img src="images/keychain.png" alt="Keychain" />
           </div>
           <div class="product-info">
             <div class="product-name">Keychain</div>
@@ -992,8 +1056,7 @@
 
         <div class="product-card fade-up">
           <div class="product-img-wrap">
-            <!-- SWAP: replace with bottle opener photo — we have one! -->
-            <img src="images/bottle-opener.jpg" alt="Custom Bottle Opener" />
+            <img src="images/bottle-opener.png" alt="Custom Bottle Opener" />
           </div>
           <div class="product-info">
             <div class="product-name">Bottle Opener</div>
@@ -1055,6 +1118,13 @@
               <div>
                 <div>Sandhills Trade Day</div>
                 <div class="market-event-sub">Check Facebook @JMagnetCo for dates</div>
+              </div>
+            </div>
+            <div class="market-event">
+              <div class="market-event-dot"></div>
+              <div>
+                <div>Luling Artisan Market</div>
+                <div class="market-event-sub">Luling, TX · May 16, 2026 · 10 AM – 3 PM</div>
               </div>
             </div>
             <div class="market-event">
@@ -1128,7 +1198,7 @@
       <div class="archive-card fade-up">
         <div class="archive-icon">🗂️</div>
         <div>
-          <div class="archive-title">Sheet Magnets</div>
+          <div class="archive-title">Flexible Magnets</div>
           <p class="archive-desc">Flexible printed sheet magnets — great for custom fridge magnets, car magnets, promo giveaways, and more. Available in various sizes. Minimum quantities may apply.</p>
           <span class="archive-tag">By Request Only</span>
         </div>
