@@ -983,7 +983,7 @@
         Buttons
         <div class="tag-preview">
           <img src="images/button-pin.png" alt="Button Pin" />
-          <div class="tag-preview-label">Button Pins · $3</div>
+          <div class="tag-preview-label">Button Pins · $4</div>
         </div>
       </span>
       <span class="hero-tag active">
@@ -997,7 +997,7 @@
         Bottle Openers
         <div class="tag-preview">
           <img src="images/bottle-opener.png" alt="Bottle Opener" />
-          <div class="tag-preview-label">Bottle Openers · $7</div>
+          <div class="tag-preview-label">Bottle Openers · $6</div>
         </div>
       </span>
       <span class="hero-tag">Kid-Owned Business</span>
@@ -1038,7 +1038,7 @@
           </div>
           <div class="product-info">
             <div class="product-name">Button Pin</div>
-            <div class="product-size">2.28" Diameter</div>
+            <div class="product-size">2.28" Diameter · $4</div>
             <p class="product-desc">Classic pin-back button. Great for events, fundraisers, school spirit, or just showing off your design.</p>
           </div>
         </div>
@@ -1290,7 +1290,7 @@
 
               <div class="qty-row" id="row-buttons">
                 <span class="qty-product-name">Button Pins</span>
-                <span class="qty-price">$3.00</span>
+                <span class="qty-price">$4.00</span>
                 <div class="qty-controls">
                   <button type="button" class="qty-btn" onclick="changeQty('buttons',-1)">−</button>
                   <input class="qty-input" type="number" id="qty-buttons" value="0" min="0" max="999" oninput="updateTotal()" />
@@ -1310,11 +1310,41 @@
 
               <div class="qty-row" id="row-openers">
                 <span class="qty-product-name">Bottle Openers</span>
-                <span class="qty-price">$7.00</span>
+                <span class="qty-price">$6.00</span>
                 <div class="qty-controls">
                   <button type="button" class="qty-btn" onclick="changeQty('openers',-1)">−</button>
                   <input class="qty-input" type="number" id="qty-openers" value="0" min="0" max="999" oninput="updateTotal()" />
                   <button type="button" class="qty-btn" onclick="changeQty('openers',1)">+</button>
+                </div>
+              </div>
+
+              <div class="qty-row" id="row-flex_lg">
+                <span class="qty-product-name">Flexible Magnet <span style="color:var(--orange);font-size:0.75rem;">LARGE</span></span>
+                <span class="qty-price">$15.00</span>
+                <div class="qty-controls">
+                  <button type="button" class="qty-btn" onclick="changeQty('flex_lg',-1)">−</button>
+                  <input class="qty-input" type="number" id="qty-flex_lg" value="0" min="0" max="999" oninput="updateTotal()" />
+                  <button type="button" class="qty-btn" onclick="changeQty('flex_lg',1)">+</button>
+                </div>
+              </div>
+
+              <div class="qty-row" id="row-flex_md">
+                <span class="qty-product-name">Flexible Magnet <span style="color:var(--orange);font-size:0.75rem;">MEDIUM</span></span>
+                <span class="qty-price">$10.00</span>
+                <div class="qty-controls">
+                  <button type="button" class="qty-btn" onclick="changeQty('flex_md',-1)">−</button>
+                  <input class="qty-input" type="number" id="qty-flex_md" value="0" min="0" max="999" oninput="updateTotal()" />
+                  <button type="button" class="qty-btn" onclick="changeQty('flex_md',1)">+</button>
+                </div>
+              </div>
+
+              <div class="qty-row" id="row-flex_sm">
+                <span class="qty-product-name">Flexible Magnet <span style="color:var(--orange);font-size:0.75rem;">SMALL</span></span>
+                <span class="qty-price">$10.00</span>
+                <div class="qty-controls">
+                  <button type="button" class="qty-btn" onclick="changeQty('flex_sm',-1)">−</button>
+                  <input class="qty-input" type="number" id="qty-flex_sm" value="0" min="0" max="999" oninput="updateTotal()" />
+                  <button type="button" class="qty-btn" onclick="changeQty('flex_sm',1)">+</button>
                 </div>
               </div>
 
@@ -1394,10 +1424,13 @@
 
     // ── PRICING ─────────────────────────────────────────────────
     const PRICES = {
-      magnets:  { label: 'Round Magnets',  price: 5 },
-      buttons:  { label: 'Button Pins',    price: 3 },
-      keychains:{ label: 'Keychains',      price: 5 },
-      openers:  { label: 'Bottle Openers', price: 7 },
+      magnets:   { label: 'Round Magnets',           price: 5 },
+      buttons:   { label: 'Button Pins',             price: 4 },
+      keychains: { label: 'Keychains',               price: 5 },
+      openers:   { label: 'Bottle Openers',          price: 6 },
+      flex_lg:   { label: 'Flexible Magnet (Large)', price: 15 },
+      flex_md:   { label: 'Flexible Magnet (Medium)',price: 10 },
+      flex_sm:   { label: 'Flexible Magnet (Small)', price: 10 },
     };
     const BULK_THRESHOLD = 25;
 
