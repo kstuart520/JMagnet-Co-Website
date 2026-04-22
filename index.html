@@ -554,19 +554,20 @@
     @media (max-width: 768px) { .markets-intro { grid-template-columns: 1fr; gap: 2rem; } }
     .market-flyer-stack {
       position: relative;
-      height: 380px;
+      height: 420px;
     }
     .market-flyer {
       position: absolute;
-      width: 220px;
+      width: 200px;
       border-radius: 12px;
       overflow: hidden;
       border: 2px solid var(--card-border);
       box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     }
     .market-flyer img { width: 100%; display: block; }
-    .market-flyer:nth-child(1) { left: 0; top: 0; transform: rotate(-3deg); z-index: 1; }
-    .market-flyer:nth-child(2) { left: 110px; top: 60px; transform: rotate(2deg); z-index: 2; border-color: var(--orange); }
+    .market-flyer:nth-child(1) { left: 0; top: 20px; transform: rotate(-4deg); z-index: 1; }
+    .market-flyer:nth-child(2) { left: 90px; top: 0; transform: rotate(2deg); z-index: 3; border-color: var(--orange); }
+    .market-flyer:nth-child(3) { left: 180px; top: 30px; transform: rotate(-2deg); z-index: 2; }
     .markets-text .section-desc { margin-bottom: 1.5rem; }
     .market-events {
       display: flex;
@@ -1049,28 +1050,28 @@
       <span class="hero-tag active">
         Round Magnets
         <div class="tag-preview">
-          <img src="images/magnet.png" alt="Round Magnet" />
+          <img src="images/magnetbackside.png" alt="Round Magnet Back" />
           <div class="tag-preview-label">Round Magnets · $5</div>
         </div>
       </span>
       <span class="hero-tag active">
         Buttons
         <div class="tag-preview">
-          <img src="images/button-pin.png" alt="Button Pin" />
+          <img src="images/buttonbackside.png" alt="Button Pin Back" />
           <div class="tag-preview-label">Button Pins · $4</div>
         </div>
       </span>
       <span class="hero-tag active">
         Keychains
         <div class="tag-preview">
-          <img src="images/keychain.png" alt="Keychain" />
+          <img src="images/keychainbackside.webp" alt="Keychain Back" />
           <div class="tag-preview-label">Keychains · $5</div>
         </div>
       </span>
       <span class="hero-tag active">
         Bottle Openers
         <div class="tag-preview">
-          <img src="images/bottle-opener.png" alt="Bottle Opener" />
+          <img src="images/bottleopenerbackside.png" alt="Bottle Opener Back" />
           <div class="tag-preview-label">Bottle Openers · $6</div>
         </div>
       </span>
@@ -1201,10 +1202,13 @@
       <div class="markets-intro">
         <div class="market-flyer-stack fade-up">
           <div class="market-flyer">
+            <img src="images/MothersDayMarket.png" alt="Mother's Day Market San Marcos" />
+          </div>
+          <div class="market-flyer">
             <img src="images/LulingMarket.png" alt="Luling Artisan Market" />
           </div>
           <div class="market-flyer">
-            <img src="images/MothersDayMarket.png" alt="Mother's Day Market San Marcos" />
+            <img src="images/City-Market.png" alt="City Market Luling" />
           </div>
         </div>
         <div class="markets-text">
