@@ -446,6 +446,80 @@
       line-height: 1.5;
     }
 
+    /* ===== 3D FLIP CARD ===== */
+    .flip-card {
+      perspective: 1000px;
+      width: 100%;
+      aspect-ratio: 1;
+      cursor: pointer;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
+    }
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow: hidden;
+    }
+    .flip-card-front img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .flip-card-back {
+      transform: rotateY(180deg);
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid var(--orange);
+    }
+    .flip-back-icon {
+      font-size: 2.5rem;
+      opacity: 0.85;
+    }
+    .flip-back-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      letter-spacing: 0.06em;
+      color: var(--white);
+    }
+    .flip-back-detail {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .flip-back-tag {
+      background: var(--orange);
+      color: var(--black);
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      margin-top: 0.25rem;
+    }
+    /* Touch support for mobile */
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
     /* ===== USE CASES ===== */
     #usecases { background: var(--black); }
     .usecase-list {
@@ -1020,21 +1094,37 @@
 
       <div class="products-grid">
 
+        <!-- Round Magnet -->
         <div class="product-card fade-up">
-          <div class="product-img-wrap">
-            <img src="images/magnet.png" alt="Round Magnet" />
-            <span class="product-badge">Best Seller</span>
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="images/frontside.png" alt="Round Magnet" />
+                <span class="product-badge">Best Seller</span>
+              </div>
+              <div class="flip-card-back" style="padding:0;background:#000;">
+                <img src="images/magnetbackside.png" alt="Round Magnet Back" style="width:100%;height:100%;object-fit:cover;" />
+              </div>
+            </div>
           </div>
           <div class="product-info">
             <div class="product-name">Round Magnet</div>
-            <div class="product-size">2.28" Diameter</div>
+            <div class="product-size">2.28" Diameter · $5</div>
             <p class="product-desc">Sturdy fridge or locker magnet with full-color custom printing. Perfect for photos, logos, and custom art.</p>
           </div>
         </div>
 
+        <!-- Button Pin -->
         <div class="product-card fade-up">
-          <div class="product-img-wrap">
-            <img src="images/button-pin.png" alt="Button Pin" />
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="images/frontside.png" alt="Button Pin" />
+              </div>
+              <div class="flip-card-back" style="padding:0;background:#000;">
+                <img src="images/buttonbackside.png" alt="Button Pin Back" style="width:100%;height:100%;object-fit:cover;" />
+              </div>
+            </div>
           </div>
           <div class="product-info">
             <div class="product-name">Button Pin</div>
@@ -1043,29 +1133,44 @@
           </div>
         </div>
 
+        <!-- Keychain -->
         <div class="product-card fade-up">
-          <div class="product-img-wrap">
-            <img src="images/keychain.png" alt="Keychain" />
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="images/frontside.png" alt="Keychain" />
+              </div>
+              <div class="flip-card-back" style="padding:0;background:#000;">
+                <img src="images/keychainbackside.webp" alt="Keychain Back" style="width:100%;height:100%;object-fit:cover;" />
+              </div>
+            </div>
           </div>
           <div class="product-info">
             <div class="product-name">Keychain</div>
-            <div class="product-size">2.28" Round</div>
+            <div class="product-size">2.28" Round · $5</div>
             <p class="product-desc">Take your design everywhere. Metal keyring attached, durable and compact. Custom photo or text.</p>
           </div>
         </div>
 
+        <!-- Bottle Opener -->
         <div class="product-card fade-up">
-          <div class="product-img-wrap">
-            <img src="images/bottle-opener.png" alt="Custom Bottle Opener" />
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="images/frontside.png" alt="Custom Bottle Opener" />
+              </div>
+              <div class="flip-card-back" style="padding:0;background:#000;">
+                <img src="images/bottleopenerbackside.png" alt="Bottle Opener Back" style="width:100%;height:100%;object-fit:cover;" />
+              </div>
+            </div>
           </div>
           <div class="product-info">
             <div class="product-name">Bottle Opener</div>
-            <div class="product-size">2.28" Round</div>
+            <div class="product-size">2.28" Round · $6</div>
             <p class="product-desc">A functional keepsake — custom printed top with a built-in bottle opener on the back. Party favorite.</p>
           </div>
         </div>
 
-      </div>
     </div>
   </section>
 
@@ -1196,10 +1301,12 @@
       <p class="section-desc fade-up">We still make sheet magnets and other specialty formats for clients who need something unique. These aren't in our main lineup, but if you need it — ask.</p>
 
       <div class="archive-card fade-up">
-        <div class="archive-icon">🗂️</div>
+        <div class="archive-icon">
+          <img src="images/FlexibleMagnet.JPG" alt="Flexible Magnet" style="width:80px;height:80px;object-fit:cover;border-radius:8px;border:1px solid var(--card-border);" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span style="display:none;font-size:3rem;">🗂️</span>
+        </div>
         <div>
           <div class="archive-title">Flexible Magnets</div>
-          <p class="archive-desc">Flexible printed sheet magnets — great for custom fridge magnets, car magnets, promo giveaways, and more. Available in various sizes. Minimum quantities may apply.</p>
+          <p class="archive-desc">Flexible printed sheet magnets — great for custom fridge magnets, car magnets, promo giveaways, and more. Available in small, medium, and large sizes. Starting at $10.</p>
           <span class="archive-tag">By Request Only</span>
         </div>
       </div>
@@ -1380,7 +1487,7 @@
 
           <button type="submit" class="form-submit" id="submitBtn">Send My Order →</button>
           <div id="formStatus" style="display:none;"></div>
-          <p class="form-note">We'll review your order and reach out within 1–2 business days with confirmation and your payment link.</p>
+          <p class="form-note">We'll review your order and reach out within 1–2 business days with confirmation, your payment link, and instructions for sending your design photos.</p>
         </form>
       </div>
     </div>
@@ -1410,6 +1517,14 @@
     const mobileMenu = document.getElementById('mobileMenu');
     menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
     function closeMenu() { mobileMenu.classList.remove('open'); }
+
+    // Mobile tap to flip product cards
+    document.querySelectorAll('.flip-card').forEach(card => {
+      card.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        this.classList.toggle('flipped');
+      });
+    });
 
     // Fade-up on scroll
     const fadeEls = document.querySelectorAll('.fade-up');
@@ -1549,7 +1664,7 @@
             successHTML += `<strong>Estimated Total: $${total.toFixed(2)}</strong>`;
           }
         }
-        successHTML += '<br /><br />We\'ll be in touch within 1–2 business days with confirmation and your payment link.';
+        successHTML += '<br /><br />We\'ll be in touch within 1–2 business days to confirm your order and send your payment link.<br /><br />When we reach out, you can reply with any photos or artwork for your design — just attach them to that email.
 
         formStatus.style.cssText = 'display:block; background:rgba(232,82,10,0.1); border:1px solid rgba(232,82,10,0.35); color:var(--white); border-radius:10px; padding:1.2rem 1.4rem; font-size:0.88rem; line-height:1.7; margin-top:0.5rem;';
         formStatus.innerHTML = successHTML;
