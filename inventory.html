@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JMagnet Co. — Current Inventory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --orange: #E8520A;
+      --orange-light: #FF6B22;
+      --orange-glow: rgba(232,82,10,0.25);
+      --black: #0D0D0D;
+      --dark: #141414;
+      --card: #1C1C1C;
+      --card-border: #2A2A2A;
+      --white: #F5F0EB;
+      --muted: #888;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-script: 'Dancing Script', cursive;
+      --font-body: 'Nunito', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 2rem;
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .nav-logo img {
+      height: 40px;
+      width: 40px;
+      object-fit: contain;
+    }
+    .nav-logo-text {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      line-height: 1;
+    }
+    .nav-logo-text span { color: var(--orange); }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--orange); }
+    .nav-links a.active { color: var(--orange); }
+    .nav-cta {
+      background: var(--orange);
+      color: var(--black) !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 4px;
+      font-weight: 800 !important;
+    }
+    .nav-cta:hover { background: var(--orange-light) !important; }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 61px; left: 0; right: 0;
+      background: rgba(13,13,13,0.98);
+      backdrop-filter: blur(12px);
+      z-index: 99;
+      padding: 1.5rem 2rem;
+      flex-direction: column;
+      gap: 1.2rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover, .mobile-menu a.active { color: var(--orange); }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
+    /* ===== PAGE HEADER ===== */
+    .page-header {
+      padding: 8rem 2rem 4rem;
+      text-align: center;
+      background: var(--dark);
+      border-bottom: 1px solid var(--card-border);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(232,82,10,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-header-label {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      letter-spacing: 0.35em;
+      color: var(--orange);
+      margin-bottom: 0.6rem;
+    }
+    .page-header-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .page-header-title em { font-style: normal; color: var(--orange); }
+    .page-header-desc {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.7;
+    }
+    .last-updated {
+      display: inline-block;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      padding: 0.3rem 1rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .last-updated span { color: var(--orange); }
+
+    /* ===== FILTER BAR ===== */
+    .filter-bar {
+      padding: 1.5rem 2rem;
+      background: var(--black);
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .filter-btn {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      color: var(--muted);
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: var(--black);
+    }
+
+    /* ===== INVENTORY GRID ===== */
+    .inventory-section {
+      padding: 4rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .category-label {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      letter-spacing: 0.35em;
+      color: var(--orange);
+      margin-bottom: 0.5rem;
+    }
+    .category-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .inventory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+    .inv-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+      position: relative;
+    }
+    .inv-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--orange);
+      box-shadow: 0 12px 40px var(--orange-glow);
+    }
+    .inv-card.out-of-stock {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    .inv-card.out-of-stock:hover {
+      transform: none;
+      border-color: var(--card-border);
+      box-shadow: none;
+    }
+    .inv-img {
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: #222;
+      position: relative;
+    }
+    .inv-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .inv-img-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: repeating-linear-gradient(
+        45deg, #1a1a1a, #1a1a1a 10px, #1e1e1e 10px, #1e1e1e 20px
+      );
+      font-size: 3rem;
+      opacity: 0.3;
+    }
+    .inv-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+    }
+    .inv-badge.new {
+      background: var(--orange);
+      color: var(--black);
+    }
+    .inv-badge.sold-out {
+      background: #333;
+      color: var(--muted);
+      border: 1px solid #444;
+    }
+    .inv-badge.low-stock {
+      background: rgba(232,82,10,0.2);
+      color: var(--orange);
+      border: 1px solid rgba(232,82,10,0.4);
+    }
+    .inv-info {
+      padding: 1rem;
+    }
+    .inv-name {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.2rem;
+    }
+    .inv-size {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .inv-price {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.75rem;
+    }
+    .inv-order-btn {
+      display: block;
+      width: 100%;
+      background: var(--orange);
+      color: var(--black);
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
+      border: none;
+      border-radius: 6px;
+      padding: 0.7rem;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .inv-order-btn:hover { background: var(--orange-light); }
+    .inv-out-btn {
+      display: block;
+      width: 100%;
+      background: transparent;
+      color: var(--muted);
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 0.7rem;
+      text-align: center;
+    }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--muted);
+    }
+    .empty-state-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.3; }
+    .empty-state-text {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.5rem;
+      color: var(--white);
+    }
+    .empty-state-sub { font-size: 0.9rem; }
+
+    /* ===== RESTOCK BANNER ===== */
+    .restock-banner {
+      background: rgba(232,82,10,0.08);
+      border: 1px solid rgba(232,82,10,0.25);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 0 2rem 4rem;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .restock-text {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .restock-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+    .restock-btn {
+      background: var(--orange);
+      color: var(--black);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      padding: 0.65rem 1.5rem;
+      border-radius: 6px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .restock-btn:hover { background: var(--orange-light); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid var(--card-border);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .footer-logo img {
+      height: 52px;
+      object-fit: contain;
+      margin: 0 auto 0.75rem;
+    }
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+    .footer-brand span { color: var(--orange); }
+    .footer-tagline {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--orange); }
+    .footer-copy { font-size: 0.72rem; color: #444; }
+    .footer-copy a { color: #666; }
+    .footer-copy a:hover { color: var(--orange); }
+
+    /* ===== ANIMATIONS ===== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo.png" alt="JMagnet Co." />
+      <div class="nav-logo-text">JMAGNET <span>CO.</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#products">Products</a></li>
+      <li><a href="index.html#markets">Markets</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#archive">Archive</a></li>
+      <li><a href="inventory.html" class="active">Inventory</a></li>
+      <li><a href="index.html#contact" class="nav-cta">Order Now</a></li>
+    </ul>
+    <button class="nav-hamburger" id="menuBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#products" onclick="closeMenu()">Products</a>
+    <a href="index.html#markets" onclick="closeMenu()">Markets</a>
+    <a href="index.html#about" onclick="closeMenu()">About</a>
+    <a href="index.html#archive" onclick="closeMenu()">Archive</a>
+    <a href="inventory.html" class="active" onclick="closeMenu()">Inventory</a>
+    <a href="index.html#contact" onclick="closeMenu()" style="color:var(--orange)">Order Now</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <p class="page-header-label">What's Available Now</p>
+    <h1 class="page-header-title">Current <em>Inventory</em></h1>
+    <p class="page-header-desc">Ready-made items available for immediate order. Stock changes with every market and restock — check back often.</p>
+    <span class="last-updated">Last updated: <span id="lastUpdated">Loading...</span></span>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterItems('all', this)">All Items</button>
+    <button class="filter-btn" onclick="filterItems('square-magnet', this)">Square Magnets</button>
+    <button class="filter-btn" onclick="filterItems('round-magnet', this)">Round Magnets</button>
+    <button class="filter-btn" onclick="filterItems('button', this)">Buttons</button>
+    <button class="filter-btn" onclick="filterItems('keychain', this)">Keychains</button>
+    <button class="filter-btn" onclick="filterItems('bottle-opener', this)">Bottle Openers</button>
+  </div>
+
+  <!-- INVENTORY GRID -->
+  <div class="inventory-section">
+    <p class="category-label fade-up">In Stock</p>
+    <h2 class="category-title fade-up">Available Items</h2>
+    <div class="inventory-grid fade-up" id="inventoryGrid">
+      <div style="grid-column:1/-1;">
+        <div class="empty-state">
+          <div class="empty-state-icon">📦</div>
+          <div class="empty-state-text">Loading inventory...</div>
+          <div class="empty-state-sub">Please wait a moment</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESTOCK BANNER -->
+  <div class="restock-banner fade-up">
+    <div>
+      <div class="restock-text">🔔 Want to know when we restock?</div>
+      <div class="restock-sub">Follow us on Facebook @JMagnetCo for restock announcements and new inventory drops.</div>
+    </div>
+    <a href="https://facebook.com/JMagnetCo" target="_blank" class="restock-btn">Follow on Facebook</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <img src="images/logo.png" alt="JMagnet Co." />
+    </div>
+    <div class="footer-brand">JMAGNET <span>CO.</span></div>
+    <p class="footer-tagline">Custom Magnets & More · Luling, TX</p>
+    <div class="footer-links">
+      <a href="index.html#products">Products</a>
+      <a href="index.html#markets">Markets</a>
+      <a href="index.html#about">About</a>
+      <a href="inventory.html">Inventory</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="https://facebook.com/JMagnetCo" target="_blank">Facebook</a>
+    </div>
+    <p class="footer-copy">© 2026 JMagnet Co. All rights reserved. · <a href="mailto:jmagnetco@gmail.com">jmagnetco@gmail.com</a></p>
+  </footer>
+
+  <script>
+    // ── NAV ──────────────────────────────────────────────────
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    function closeMenu() { mobileMenu.classList.remove('open'); }
+
+    // ── FADE UP ──────────────────────────────────────────────
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80);
+      });
+    }, { threshold: 0.1 });
+    fadeEls.forEach(el => observer.observe(el));
+
+    // ── INVENTORY DATA ────────────────────────────────────────
+    // TO UPDATE INVENTORY:
+    // Option A (Google Sheet): Replace SHEET_URL below with your published
+    //   Google Sheet CSV URL. See instructions at bottom of this file.
+    // Option B (Manual): Edit the INVENTORY array directly below.
+
+    // ── OPTION B: MANUAL INVENTORY ───────────────────────────
+    // Add or remove items here. Set inStock: false to show Out of Stock.
+    // badge options: 'new', 'low-stock', 'sold-out', or '' for none
+    const INVENTORY = [
+      {
+        id: 1,
+        name: 'Square Magnet',
+        category: 'square-magnet',
+        size: '3" × 3"',
+        price: '$5.00',
+        image: '',
+        inStock: true,
+        badge: 'new',
+      },
+      // ── ADD MORE ITEMS HERE ──
+      // {
+      //   id: 2,
+      //   name: 'Round Magnet',
+      //   category: 'round-magnet',
+      //   size: '2.28" Round',
+      //   price: '$5.00',
+      //   image: 'images/magnet.png',
+      //   inStock: true,
+      //   badge: '',
+      // },
+    ];
+
+    // ── RENDER ───────────────────────────────────────────────
+    let currentFilter = 'all';
+
+    function renderInventory(filter) {
+      const grid = document.getElementById('inventoryGrid');
+      const items = filter === 'all'
+        ? INVENTORY
+        : INVENTORY.filter(i => i.category === filter);
+
+      if (items.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column:1/-1;">
+            <div class="empty-state">
+              <div class="empty-state-icon">📦</div>
+              <div class="empty-state-text">Nothing here yet</div>
+              <div class="empty-state-sub">Check back soon or follow us on Facebook for restock updates.</div>
+            </div>
+          </div>`;
+        return;
+      }
+
+      grid.innerHTML = items.map(item => `
+        <div class="inv-card ${!item.inStock ? 'out-of-stock' : ''}">
+          <div class="inv-img">
+            ${item.image
+              ? `<img src="${item.image}" alt="${item.name}" onerror="this.parentElement.innerHTML='<div class=inv-img-placeholder>🧲</div>'" />`
+              : `<div class="inv-img-placeholder">🧲</div>`
+            }
+            ${item.badge === 'new' ? '<span class="inv-badge new">New</span>' : ''}
+            ${item.badge === 'low-stock' ? '<span class="inv-badge low-stock">Low Stock</span>' : ''}
+            ${!item.inStock ? '<span class="inv-badge sold-out">Out of Stock</span>' : ''}
+          </div>
+          <div class="inv-info">
+            <div class="inv-name">${item.name}</div>
+            <div class="inv-size">${item.size}</div>
+            <div class="inv-price">${item.price}</div>
+            ${item.inStock
+              ? `<a href="index.html#contact" class="inv-order-btn">Order Now →</a>`
+              : `<div class="inv-out-btn">Out of Stock</div>`
+            }
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterItems(category, btn) {
+      currentFilter = category;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderInventory(category);
+    }
+
+    // ── LAST UPDATED DATE ────────────────────────────────────
+    // Change this date whenever you update inventory
+    const LAST_UPDATED = 'April 27, 2026';
+    document.getElementById('lastUpdated').textContent = LAST_UPDATED;
+
+    // Initial render
+    renderInventory('all');
+
+  </script>
+
+  <!--
+  ================================================================
+  HOW TO UPDATE INVENTORY (Option A — Google Sheet)
+  ================================================================
+  1. Create a Google Sheet with these columns:
+     id | name | category | size | price | image | inStock | badge
+
+  2. Category options: square-magnet, round-magnet, button, keychain, bottle-opener
+
+  3. Badge options: new, low-stock, sold-out, (leave blank for none)
+
+  4. File > Share > Publish to web > CSV format > Copy URL
+
+  5. In this file, replace the INVENTORY array with a fetch call:
+
+  fetch('YOUR_SHEET_CSV_URL')
+    .then(r => r.text())
+    .then(csv => {
+      // parse CSV and render
+    });
+
+  Or just keep using the manual INVENTORY array above — it works great
+  for small inventories and is easy to update directly on GitHub.
+  ================================================================
+  -->
+</body>
+</html>
