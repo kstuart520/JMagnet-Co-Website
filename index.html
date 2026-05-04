@@ -1024,7 +1024,7 @@
       <li><a href="#markets">Markets</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#archive">Archive</a></li>
-      <li><a href="inventory.html">Inventory</a></li><l>
+      <li><a href="inventory.html">Inventory</a></li>
       <li><a href="#contact" class="nav-cta">Order Now</a></li>
     </ul>
     <button class="nav-hamburger" id="menuBtn" aria-label="Menu">
@@ -1049,39 +1049,14 @@
     <h1 class="hero-title">JMAGNET<br /><span>CO.</span></h1>
     <p class="hero-subtitle">Turn your memories into magnets!</p>
     <div class="hero-tags">
-      <span class="hero-tag active">
-        Round Magnets
-        <div class="tag-preview">
-          <img src="images/magnetbackside.png" alt="Round Magnet Back" />
-          <div class="tag-preview-label">Round Magnets · $5</div>
-        </div>
-      </span>
-      <span class="hero-tag active">
-        Buttons
-        <div class="tag-preview">
-          <img src="images/buttonbackside.png" alt="Button Pin Back" />
-          <div class="tag-preview-label">Button Pins · $4</div>
-        </div>
-      </span>
-      <span class="hero-tag active">
-        Keychains
-        <div class="tag-preview">
-          <img src="images/keychainbackside.png" alt="Keychain Back" />
-          <div class="tag-preview-label">Keychains · $5</div>
-        </div>
-      </span>
-      <span class="hero-tag active">
-        Bottle Openers
-        <div class="tag-preview">
-          <img src="images/bottleopenerbackside.png" alt="Bottle Opener Back" />
-          <div class="tag-preview-label">Bottle Openers · $6</div>
-        </div>
-      </span>
       <span class="hero-tag">Kid-Owned Business</span>
+      <span class="hero-tag">Texas Made</span>
+      <span class="hero-tag">Custom Designs</span>
+      <span class="hero-tag">Fast Turnaround</span>
     </div>
     <div class="hero-btns">
-      <a href="#products" class="btn-primary">See Products</a>
-      <a href="#contact" class="btn-outline">Get a Quote</a>
+      <a href="inventory.html" class="btn-primary">View All Products</a>
+      <a href="#contact" class="btn-outline">Place an Order</a>
     </div>
     <div class="hero-scroll">Scroll</div>
   </section>
@@ -1093,7 +1068,7 @@
     <div class="section-inner">
       <p class="section-label fade-up">What We Make</p>
       <h2 class="section-title fade-up">Our <em>Products</em></h2>
-      <p class="section-desc fade-up">Everything is made on your design — photos, logos, artwork, or text. All items are 2.28" round and built sturdy.</p>
+      <p class="section-desc fade-up">Everything is made on your design — photos, logos, artwork, or text. Custom printed and built to last.</p>
 
       <div class="products-grid">
 
@@ -1114,6 +1089,31 @@
             <div class="product-name">Round Magnet</div>
             <div class="product-size">2.28" Diameter · $5</div>
             <p class="product-desc">Sturdy fridge or locker magnet with full-color custom printing. Perfect for photos, logos, and custom art.</p>
+          </div>
+        </div>
+
+        <!-- Square Magnet -->
+        <div class="product-card fade-up">
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <div class="product-placeholder" style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.5rem;background:repeating-linear-gradient(45deg,#1a1a1a,#1a1a1a 10px,#1e1e1e 10px,#1e1e1e 20px);color:#666;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;">
+                  <span style="font-size:2.5rem;opacity:0.3;">🔲</span>Photo coming soon
+                </div>
+                <span class="product-badge new" style="background:var(--orange);color:var(--black);">New</span>
+              </div>
+              <div class="flip-card-back" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.75rem;padding:1.5rem;text-align:center;border:1px solid var(--orange);">
+                <div style="font-size:2.5rem;">🔲</div>
+                <div style="font-family:var(--font-display);font-size:1.2rem;letter-spacing:0.06em;">Square Magnet</div>
+                <div style="font-size:0.78rem;color:var(--muted);line-height:1.5;">Strong magnetic backing — perfect for flat fridge display. Great for photos and artwork.</div>
+                <div style="background:var(--orange);color:var(--black);font-size:0.65rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;padding:0.3rem 0.8rem;border-radius:999px;">$5 · 2" × 2"</div>
+              </div>
+            </div>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Square Magnet</div>
+            <div class="product-size">2" × 2" · $5</div>
+            <p class="product-desc">A compact square magnet — same full-color custom printing in a clean flat format. Perfect for photos.</p>
           </div>
         </div>
 
@@ -1175,8 +1175,12 @@
         </div>
 
       </div>
-    </div>
-  </section>
+
+      <!-- View All / Order button -->
+      <div class="fade-up" style="text-align:center;margin-top:3rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="inventory.html" class="btn-outline">View Full Inventory</a>
+        <a href="#contact" class="btn-primary">Place an Order</a>
+      </div>
 
   <!-- USE CASES -->
   <section id="usecases" style="padding-top: 0;">
@@ -1279,12 +1283,12 @@
           <p class="about-body">Every order is made with care. Kid-owned, Texas-made, and built to last.</p>
           <div class="about-stats">
             <div>
-              <div class="about-stat-num">2.28"</div>
-              <div class="about-stat-label">Sturdy Round Products</div>
+              <div class="about-stat-num">5+</div>
+              <div class="about-stat-label">Product Types</div>
             </div>
             <div>
-              <div class="about-stat-num">4+</div>
-              <div class="about-stat-label">Product Types</div>
+              <div class="about-stat-num">2.28"</div>
+              <div class="about-stat-label">Round Products</div>
             </div>
             <div>
               <div class="about-stat-num">TX</div>
@@ -1383,6 +1387,9 @@
           <!-- Product quantity selector -->
           <div class="form-field">
             <label class="form-label">What Would You Like? (adjust quantities)</label>
+            <div style="background:rgba(232,82,10,0.08);border:1px solid rgba(232,82,10,0.3);border-radius:8px;padding:0.6rem 1rem;margin-bottom:0.5rem;font-size:0.78rem;font-weight:700;color:var(--orange);text-align:center;">
+              🎉 Buy 5 get the 6th one FREE on any product!
+            </div>
             <div class="products-order-section">
               <div class="products-order-header">
                 <span>Product</span>
@@ -1397,6 +1404,16 @@
                   <button type="button" class="qty-btn" onclick="changeQty('magnets',-1)">−</button>
                   <input class="qty-input" type="number" id="qty-magnets" value="0" min="0" max="999" oninput="updateTotal()" />
                   <button type="button" class="qty-btn" onclick="changeQty('magnets',1)">+</button>
+                </div>
+              </div>
+
+              <div class="qty-row" id="row-sqmagnets">
+                <span class="qty-product-name">Square Magnets <span style="font-size:0.65rem;background:var(--orange);color:var(--black);padding:0.1rem 0.4rem;border-radius:999px;font-weight:800;letter-spacing:0.08em;margin-left:0.3rem;">NEW</span></span>
+                <span class="qty-price">$5.00</span>
+                <div class="qty-controls">
+                  <button type="button" class="qty-btn" onclick="changeQty('sqmagnets',-1)">−</button>
+                  <input class="qty-input" type="number" id="qty-sqmagnets" value="0" min="0" max="999" oninput="updateTotal()" />
+                  <button type="button" class="qty-btn" onclick="changeQty('sqmagnets',1)">+</button>
                 </div>
               </div>
 
@@ -1472,11 +1489,21 @@
             </div>
           </label>
 
+          <!-- Shipping toggle -->
+          <label class="bulk-toggle-wrap">
+            <input type="checkbox" id="shippingToggle" onchange="updateTotal()" />
+            <div>
+              <div class="bulk-toggle-label">I need this shipped to me</div>
+              <div class="bulk-toggle-sub">*Shipping fee of $5 will be added to your total.</div>
+            </div>
+          </label>
+
           <!-- Live total -->
           <div class="order-total-bar" id="totalBar" style="display:none;">
             <div>
               <div class="order-total-label">Estimated Total</div>
               <div id="bulkNote" style="font-size:0.72rem;color:var(--orange);margin-top:0.2rem;display:none;">⚡ Bulk order — contact us for pricing</div>
+              <div id="shippingNote" style="font-size:0.72rem;color:var(--muted);margin-top:0.2rem;display:none;">📦 Includes $5.00 shipping</div>
             </div>
             <div style="text-align:right;">
               <div class="order-total-amount" id="totalAmount">$0.00</div>
@@ -1510,10 +1537,11 @@
       <a href="#markets">Markets</a>
       <a href="#about">About</a>
       <a href="#archive">Archive</a>
+      <a href="inventory.html">Inventory</a>
       <a href="#contact">Contact</a>
       <a href="https://facebook.com/JMagnetCo" target="_blank">Facebook</a>
     </div>
-    <p class="footer-copy">© 2025 JMagnet Co. All rights reserved. · <a href="mailto:jmagnetco@gmail.com">jmagnetco@gmail.com</a></p>
+    <p class="footer-copy">© 2026 JMagnet Co. All rights reserved. · <a href="mailto:jmagnetco@gmail.com">jmagnetco@gmail.com</a></p>
   </footer>
 
   <script>
@@ -1545,6 +1573,7 @@
     // ── PRICING ─────────────────────────────────────────────────
     const PRICES = {
       magnets:   { label: 'Round Magnets',           price: 5 },
+      sqmagnets: { label: 'Square Magnets',          price: 5 },
       buttons:   { label: 'Button Pins',             price: 4 },
       keychains: { label: 'Keychains',               price: 5 },
       openers:   { label: 'Bottle Openers',          price: 6 },
@@ -1570,6 +1599,7 @@
       let hasAny = false;
       let hasBulk = false;
       const isBulkChecked = document.getElementById('bulkToggle').checked;
+      const isShipping = document.getElementById('shippingToggle').checked;
 
       Object.keys(PRICES).forEach(id => {
         const qty = getQty(id);
@@ -1584,16 +1614,20 @@
         }
       });
 
-      const totalBar  = document.getElementById('totalBar');
-      const totalAmt  = document.getElementById('totalAmount');
-      const bulkNote  = document.getElementById('bulkNote');
-      const submitBtn = document.getElementById('submitBtn');
+      if (isShipping) total += 5;
 
-      if (hasAny || isBulkChecked) {
+      const totalBar   = document.getElementById('totalBar');
+      const totalAmt   = document.getElementById('totalAmount');
+      const bulkNote   = document.getElementById('bulkNote');
+      const shipNote   = document.getElementById('shippingNote');
+      const submitBtn  = document.getElementById('submitBtn');
+
+      if (hasAny || isBulkChecked || isShipping) {
         totalBar.style.display = 'flex';
         totalAmt.textContent = '$' + total.toFixed(2);
         const showBulk = hasBulk || isBulkChecked;
         bulkNote.style.display = showBulk ? 'block' : 'none';
+        shipNote.style.display = isShipping ? 'block' : 'none';
         submitBtn.textContent = showBulk ? 'Send Bulk Inquiry →' : 'Send My Order →';
       } else {
         totalBar.style.display = 'none';
@@ -1611,6 +1645,7 @@
       e.preventDefault();
 
       const isBulk = document.getElementById('bulkToggle').checked;
+      const isShipping = document.getElementById('shippingToggle').checked;
       let total = 0;
       let orderLines = [];
       let hasBulkItem = false;
@@ -1625,17 +1660,23 @@
         }
       });
 
+      if (isShipping) {
+        total += 5;
+        orderLines.push('Shipping = $5.00');
+      }
+
       const isBulkOrder = isBulk || hasBulkItem;
 
       const data = {
-        timestamp:   new Date().toLocaleString(),
-        name:        document.getElementById('name').value,
-        email:       document.getElementById('email').value,
-        phone:       document.getElementById('phone').value,
-        order:       orderLines.join(' | ') || 'No items selected',
+        timestamp:      new Date().toLocaleString(),
+        name:           document.getElementById('name').value,
+        email:          document.getElementById('email').value,
+        phone:          document.getElementById('phone').value,
+        order:          orderLines.join(' | ') || 'No items selected',
         estimatedTotal: isBulkOrder ? 'BULK — TBD' : '$' + total.toFixed(2),
-        bulkOrder:   isBulkOrder ? 'Yes' : 'No',
-        message:     document.getElementById('message').value,
+        bulkOrder:      isBulkOrder ? 'Yes' : 'No',
+        shipping:       isShipping ? 'Yes — $5.00' : 'No',
+        message:        document.getElementById('message').value,
       };
 
       submitBtn.textContent = 'Sending...';
@@ -1651,6 +1692,7 @@
         });
 
         form.reset();
+        document.getElementById('shippingToggle').checked = false;
         // Reset qty inputs manually (form.reset doesn't always fire oninput)
         Object.keys(PRICES).forEach(id => {
           document.getElementById('qty-' + id).value = 0;
