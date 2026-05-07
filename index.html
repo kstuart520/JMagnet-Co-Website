@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JMagnet Co. — Custom Magnets & More</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1716,6 +1719,44 @@
         submitBtn.textContent = 'Send My Order →';
         submitBtn.disabled = false;
       }
+    });
+  </script>
+
+  <script>
+    // ── INVENTORY PRE-FILL ────────────────────────────────────
+    // Reads ?item= and ?qty= params set by inventory.html Order Now buttons.
+    // Runs on window.onload to guarantee DOM + all scripts are fully ready.
+    window.addEventListener('load', function() {
+      const params = new URLSearchParams(window.location.search);
+      const itemDesc = params.get('item');
+      const qtyId    = params.get('qty');
+
+      if (!itemDesc) return;
+
+      // 1. Fill Design Details & Notes textarea
+      const msg = document.getElementById('message');
+      if (msg) {
+        msg.value = decodeURIComponent(itemDesc);
+        // Trigger any listeners watching the field
+        msg.dispatchEvent(new Event('input'));
+      }
+
+      // 2. Set quantity to 1 and highlight the product row
+      if (qtyId) {
+        const qtyInput = document.getElementById('qty-' + qtyId);
+        if (qtyInput) {
+          qtyInput.value = 1;
+          qtyInput.dispatchEvent(new Event('input')); // recalculate total
+        }
+        const row = document.getElementById('row-' + qtyId);
+        if (row) row.classList.add('has-qty');
+      }
+
+      // 3. Scroll to contact form
+      setTimeout(function() {
+        const contact = document.getElementById('contact');
+        if (contact) contact.scrollIntoView({ behavior: 'smooth' });
+      }, 200);
     });
   </script>
 </body>
