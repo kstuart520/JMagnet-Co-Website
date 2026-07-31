@@ -1012,6 +1012,56 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* ── ORDER REDIRECT CARD ── */
+    .order-redirect-card {
+      background: var(--surface);
+      border: 2px solid var(--orange);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .order-redirect-icon { font-size: 3rem; }
+    .order-redirect-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .order-redirect-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 380px;
+    }
+    .order-redirect-btn {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--black);
+      font-weight: 900;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 1rem 2.5rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 0.5rem;
+    }
+    .order-redirect-btn:hover {
+      background: var(--orange-light, #ff7a3d);
+      transform: translateY(-2px);
+    }
+    .order-redirect-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
   </style>
 </head>
 <body>
@@ -1028,7 +1078,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#archive">Archive</a></li>
       <li><a href="inventory.html">Inventory</a></li>
-      <li><a href="#contact" class="nav-cta">Order Now</a></li>
+      <li><a href="https://jmagnetco.missmagnets.com/magtool/" target="_blank" class="nav-cta">Order Now</a></li>
     </ul>
     <button class="nav-hamburger" id="menuBtn" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -1041,7 +1091,7 @@
     <a href="#about" onclick="closeMenu()">About</a>
     <a href="#archive" onclick="closeMenu()">Archive</a>
     <a href="inventory.html" onclick="closeMenu()">Inventory</a>
-    <a href="#contact" onclick="closeMenu()" style="color:var(--orange)">Order Now</a>
+    <a href="https://jmagnetco.missmagnets.com/magtool/" target="_blank" onclick="closeMenu()" style="color:var(--orange)">Order Now</a>
   </div>
 
   <!-- HERO -->
@@ -1059,7 +1109,7 @@
     </div>
     <div class="hero-btns">
       <a href="inventory.html" class="btn-primary">View All Products</a>
-      <a href="#contact" class="btn-outline">Place an Order</a>
+      <a href="https://jmagnetco.missmagnets.com/magtool/" target="_blank" class="btn-outline">Place an Order</a>
     </div>
     <div class="hero-scroll">Scroll</div>
   </section>
@@ -1177,7 +1227,7 @@
       <!-- View All / Order button -->
       <div class="fade-up" style="text-align:center;margin-top:3rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
         <a href="inventory.html" class="btn-outline">View Full Inventory</a>
-        <a href="#contact" class="btn-primary">Place an Order</a>
+        <a href="https://jmagnetco.missmagnets.com/magtool/" target="_blank" class="btn-primary">Place an Order</a>
       </div>
 
   <!-- USE CASES -->
@@ -1338,7 +1388,7 @@
       <h2 class="section-title fade-up">Place an <em>Order</em></h2>
       <div class="contact-grid">
         <div class="fade-up">
-          <p class="section-desc" style="margin-bottom:2rem;">Ready to order or have questions? Send us a message and we'll get back to you. You can also reach us on Facebook or by email.</p>
+          <p class="section-desc" style="margin-bottom:2rem;">Have questions or want to reach out directly? We'd love to hear from you.</p>
           <div class="contact-info-item">
             <div class="contact-info-icon">✉️</div>
             <div>
@@ -1362,160 +1412,22 @@
           </div>
         </div>
 
-        <form class="contact-form fade-up" id="orderForm">
-
-          <!-- Name + Email -->
-          <div class="form-row">
-            <div class="form-field">
-              <label class="form-label" for="name">Your Name</label>
-              <input class="form-input" type="text" id="name" name="name" placeholder="Jane Smith" required />
-            </div>
-            <div class="form-field">
-              <label class="form-label" for="email">Email</label>
-              <input class="form-input" type="email" id="email" name="email" placeholder="you@email.com" required />
-            </div>
-          </div>
-
-          <!-- Phone -->
-          <div class="form-field">
-            <label class="form-label" for="phone">Phone (optional)</label>
-            <input class="form-input" type="tel" id="phone" name="phone" placeholder="(555) 000-0000" />
-          </div>
-
-          <!-- Product quantity selector -->
-          <div class="form-field">
-            <label class="form-label">What Would You Like? (adjust quantities)</label>
-            <div class="products-order-section">
-              <div class="products-order-header">
-                <span>Product</span>
-                <span>Price ea.</span>
-                <span>Qty</span>
-              </div>
-
-              <div class="qty-row" id="row-magnets">
-                <span class="qty-product-name">Round Magnets</span>
-                <span class="qty-price">$6.00</span>
-                <div class="qty-controls">
-                  <button type="button" class="qty-btn" onclick="changeQty('magnets',-1)">−</button>
-                  <input class="qty-input" type="number" id="qty-magnets" value="0" min="0" max="999" oninput="updateTotal()" />
-                  <button type="button" class="qty-btn" onclick="changeQty('magnets',1)">+</button>
-                </div>
-              </div>
-
-              <div class="qty-row" id="row-sqmagnets">
-                <span class="qty-product-name">Square Magnets <span style="font-size:0.65rem;background:var(--orange);color:var(--black);padding:0.1rem 0.4rem;border-radius:999px;font-weight:800;letter-spacing:0.08em;margin-left:0.3rem;">NEW</span></span>
-                <span class="qty-price">$5.00</span>
-                <div class="qty-controls">
-                  <button type="button" class="qty-btn" onclick="changeQty('sqmagnets',-1)">−</button>
-                  <input class="qty-input" type="number" id="qty-sqmagnets" value="0" min="0" max="999" oninput="updateTotal()" />
-                  <button type="button" class="qty-btn" onclick="changeQty('sqmagnets',1)">+</button>
-                </div>
-              </div>
-
-              <div class="qty-row" id="row-buttons">
-                <span class="qty-product-name">Button Pins</span>
-                <span class="qty-price">$6.00</span>
-                <div class="qty-controls">
-                  <button type="button" class="qty-btn" onclick="changeQty('buttons',-1)">−</button>
-                  <input class="qty-input" type="number" id="qty-buttons" value="0" min="0" max="999" oninput="updateTotal()" />
-                  <button type="button" class="qty-btn" onclick="changeQty('buttons',1)">+</button>
-                </div>
-              </div>
-
-              <div class="qty-row" id="row-keychains">
-                <span class="qty-product-name">Keychains</span>
-                <span class="qty-price">$7.00</span>
-                <div class="qty-controls">
-                  <button type="button" class="qty-btn" onclick="changeQty('keychains',-1)">−</button>
-                  <input class="qty-input" type="number" id="qty-keychains" value="0" min="0" max="999" oninput="updateTotal()" />
-                  <button type="button" class="qty-btn" onclick="changeQty('keychains',1)">+</button>
-                </div>
-              </div>
-
-              <div class="qty-row" id="row-openers">
-                <span class="qty-product-name">Bottle Openers</span>
-                <span class="qty-price">$8.00</span>
-                <div class="qty-controls">
-                  <button type="button" class="qty-btn" onclick="changeQty('openers',-1)">−</button>
-                  <input class="qty-input" type="number" id="qty-openers" value="0" min="0" max="999" oninput="updateTotal()" />
-                  <button type="button" class="qty-btn" onclick="changeQty('openers',1)">+</button>
-                </div>
-              </div>
-
-              <div class="qty-row" id="row-flex_lg">
-                <span class="qty-product-name">Flexible Magnet <span style="color:var(--orange);font-size:0.75rem;">LARGE</span></span>
-                <span class="qty-price">$15.00</span>
-                <div class="qty-controls">
-                  <button type="button" class="qty-btn" onclick="changeQty('flex_lg',-1)">−</button>
-                  <input class="qty-input" type="number" id="qty-flex_lg" value="0" min="0" max="999" oninput="updateTotal()" />
-                  <button type="button" class="qty-btn" onclick="changeQty('flex_lg',1)">+</button>
-                </div>
-              </div>
-
-              <div class="qty-row" id="row-flex_md">
-                <span class="qty-product-name">Flexible Magnet <span style="color:var(--orange);font-size:0.75rem;">MEDIUM</span></span>
-                <span class="qty-price">$10.00</span>
-                <div class="qty-controls">
-                  <button type="button" class="qty-btn" onclick="changeQty('flex_md',-1)">−</button>
-                  <input class="qty-input" type="number" id="qty-flex_md" value="0" min="0" max="999" oninput="updateTotal()" />
-                  <button type="button" class="qty-btn" onclick="changeQty('flex_md',1)">+</button>
-                </div>
-              </div>
-
-              <div class="qty-row" id="row-flex_sm">
-                <span class="qty-product-name">Flexible Magnet <span style="color:var(--orange);font-size:0.75rem;">SMALL</span></span>
-                <span class="qty-price">$10.00</span>
-                <div class="qty-controls">
-                  <button type="button" class="qty-btn" onclick="changeQty('flex_sm',-1)">−</button>
-                  <input class="qty-input" type="number" id="qty-flex_sm" value="0" min="0" max="999" oninput="updateTotal()" />
-                  <button type="button" class="qty-btn" onclick="changeQty('flex_sm',1)">+</button>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Bulk toggle -->
-          <label class="bulk-toggle-wrap">
-            <input type="checkbox" id="bulkToggle" onchange="updateTotal()" />
-            <div>
-              <div class="bulk-toggle-label">This is a bulk order (25+ of any item)</div>
-              <div class="bulk-toggle-sub">Need 25 or more of any single product? Check this and we'll contact you with bulk pricing.</div>
-            </div>
-          </label>
-
-          <!-- Shipping toggle -->
-          <label class="bulk-toggle-wrap">
-            <input type="checkbox" id="shippingToggle" onchange="updateTotal()" />
-            <div>
-              <div class="bulk-toggle-label">I need this shipped to me</div>
-              <div class="bulk-toggle-sub">*Shipping fee of $5 will be added to your total.</div>
-            </div>
-          </label>
-
-          <!-- Live total -->
-          <div class="order-total-bar" id="totalBar" style="display:none;">
-            <div>
-              <div class="order-total-label">Estimated Total</div>
-              <div id="bulkNote" style="font-size:0.72rem;color:var(--orange);margin-top:0.2rem;display:none;">⚡ Bulk order — contact us for pricing</div>
-              <div id="shippingNote" style="font-size:0.72rem;color:var(--muted);margin-top:0.2rem;display:none;">📦 Includes $5.00 shipping</div>
-            </div>
-            <div style="text-align:right;">
-              <div class="order-total-amount" id="totalAmount">$0.00</div>
-              <div class="order-total-note">Standard rates · subject to design review</div>
-            </div>
-          </div>
-
-          <!-- Design notes -->
-          <div class="form-field">
-            <label class="form-label" for="message">Design Details & Notes</label>
-            <textarea class="form-textarea" id="message" name="message" placeholder="Describe your design — a photo, text, logo, event name, colors... anything that helps us understand what you want."></textarea>
-          </div>
-
-          <button type="submit" class="form-submit" id="submitBtn">Send My Order →</button>
-          <div id="formStatus" style="display:none;"></div>
-          <p class="form-note">We'll review your order and reach out within 1–2 business days with confirmation, your payment link, and instructions for sending your design photos.</p>
-        </form>
+        <!-- Order redirect card -->
+        <div class="order-redirect-card fade-up">
+          <div class="order-redirect-icon">🧲</div>
+          <h3 class="order-redirect-title">Ready to Order?</h3>
+          <p class="order-redirect-desc">
+            Our full order system lets you upload your photo, pick your product,
+            and submit your order — all in one place. Fast, easy, and works on any phone.
+          </p>
+          <a href="https://jmagnetco.missmagnets.com/magtool/" target="_blank" class="order-redirect-btn">
+            Start My Order →
+          </a>
+          <p class="order-redirect-note">
+            You'll be taken to our secure order page.<br />
+            Payment collected at pickup or via invoice.
+          </p>
+        </div>
       </div>
     </div>
   </section>
